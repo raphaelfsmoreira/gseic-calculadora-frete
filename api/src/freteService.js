@@ -2,7 +2,9 @@
 
 function validarNumeroPositivo(valor, nomeCampo){
 
-    if(typeof valor != 'number' || valor < 0 ){
+    // Melhoria: !Number.isFinite() barra quando valor é um NaN ou Infinity.
+
+    if(!Number.isFinite(valor) || valor <= 0){
         throw new Error(`${nomeCampo} deve ser um valor positivo!`);
     }
 
@@ -80,6 +82,8 @@ const ALIQUOTA_TIPOS_FRETE = {
 };
 
 module.exports = {
-    
-}
+  calcularPesoCubado,
+  calcularPesoFaturado,
+  calcularValorBase
+};
 
