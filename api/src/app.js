@@ -8,6 +8,8 @@ app.use(helmet());
 app.use(cors());
 app.use(express.json());
 
+const freteRoutes = require('./freteRoutes')
+
 app.get('/health', (req, res) => {
   res.json({
     status: 'ok',
@@ -16,5 +18,8 @@ app.get('/health', (req, res) => {
     turma: '101'
   });
 });
+
+// Definindo as rotas de frete (ver freteRoute.js)
+app.use('/api/frete', freteRoutes);
 
 module.exports = app;
