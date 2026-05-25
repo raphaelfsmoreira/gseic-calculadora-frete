@@ -25,7 +25,8 @@ function calcularPesoCubado(comprimento, largura, altura){
 
     const pesoCubado = (comprimento * largura * altura) / 6000;
 
-    return(pesoCubado.toFixed(2));
+    // Tipar para Number!
+    return Number(pesoCubado.toFixed(2));
 
 }
 
@@ -51,7 +52,7 @@ function calcularValorBase(distanciaKm, pesoFaturado, tipoFrete){
     validarNumeroPositivo(distanciaKm, 'Distancia KM');
     validarNumeroPositivo(pesoFaturado, 'Peso Faturado');
 
-    const aliquotaFrete = ALIQUOTA_TIPOS_FRETE[TIPOS_FRETE];
+    const aliquotaFrete = ALIQUOTA_TIPOS_FRETE[tipoFrete];
 
     if(!aliquotaFrete){
         throw new Error('Tipo de frete inválido!')
@@ -75,15 +76,17 @@ const TIPOS_FRETE = {
 };
 
 const ALIQUOTA_TIPOS_FRETE = {
-    [TIPOS_FRETE.ECONOMICO]: 0.06,
-    [TIPOS_FRETE.NORMAL]: 0.10,
-    [TIPOS_FRETE.EXPRESSO]: 0.15,
-    [TIPOS_FRETE.URGENTE]: 0.20
+    [TIPOS_FRETE.ECONOMICO]: 0.015,
+    [TIPOS_FRETE.NORMAL]: 0.025,
+    [TIPOS_FRETE.EXPRESSO]: 0.04,
+    [TIPOS_FRETE.URGENTE]: 0.06
 };
 
 module.exports = {
   calcularPesoCubado,
   calcularPesoFaturado,
-  calcularValorBase
+  calcularValorBase,
+  TIPOS_FRETE,
+  ALIQUOTA_TIPOS_FRETE
 };
 
