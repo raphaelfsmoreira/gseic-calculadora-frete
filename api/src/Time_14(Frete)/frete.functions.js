@@ -1,13 +1,25 @@
+const TIPOS_FRETE = {
+    ECONOMICO: 'economico',
+    NORMAL: 'normal',
+    EXPRESSO: 'expresso',
+    URGENTE: 'urgente'
+};
 
+const ALIQUOTA_TIPOS_FRETE = {
+    [TIPOS_FRETE.ECONOMICO]: 0.015,
+    [TIPOS_FRETE.NORMAL]: 0.025,
+    [TIPOS_FRETE.EXPRESSO]: 0.04,
+    [TIPOS_FRETE.URGENTE]: 0.06
+};
 
-function validarNumeroPositivo(valor, nomeCampo){
+function validarNumeroPositivo(valor, nomeCampo) {
+    const numero = Number(valor);
 
-    // Melhoria: !Number.isFinite() barra quando valor é um NaN ou Infinity.
-
-    if(!Number.isFinite(valor) || valor <= 0){
+    if (Number.isNaN(numero) || numero <= 0) {
         throw new Error(`${nomeCampo} deve ser um valor positivo!`);
     }
 
+    return numero;
 }
 
 // O peso cubado calcula o quão volumoso é uma encomenda.
@@ -66,21 +78,6 @@ function calcularValorBase(distanciaKm, pesoFaturado, tipoFrete){
 }
 
 
-// Simulando enums em javascript para não deixar magic numbers pelo código...
-
-const TIPOS_FRETE = {
-    ECONOMICO: 'economico',
-    NORMAL: 'normal',
-    EXPRESSO: 'expresso',
-    URGENTE: 'urgente'
-};
-
-const ALIQUOTA_TIPOS_FRETE = {
-    [TIPOS_FRETE.ECONOMICO]: 0.015,
-    [TIPOS_FRETE.NORMAL]: 0.025,
-    [TIPOS_FRETE.EXPRESSO]: 0.04,
-    [TIPOS_FRETE.URGENTE]: 0.06
-};
 
 module.exports = {
   calcularPesoCubado,

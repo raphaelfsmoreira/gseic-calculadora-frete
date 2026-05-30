@@ -5,12 +5,12 @@ const {
     calcuarPesoFaturado,
     calcularValorBase,
     calcularPesoFaturado
-} = require('../src/freteService.js');
+} = require('../../src/Time_14(Frete)/frete.functions.js');
 
 
 const {
     TIPOS_FRETE
-} = require('../src/freteService.js');
+} = require('../../src/Time_14(Frete)/frete.functions.js');
 
 describe('Teste da função calcularPesoCubado e validação de entrada dos valores', () => {
 

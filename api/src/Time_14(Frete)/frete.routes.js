@@ -4,7 +4,7 @@ const {
     calcularPesoCubado,
     calcularPesoFaturado,
     calcularValorBase
-} = require('./freteService');
+} = require('./frete.functions');
 
 const router = express.Router();
 
