@@ -8,6 +8,18 @@ const {
 
 const router = express.Router();
 
+router.post('/health', (req, res) => {
+
+});
+
+
+// Endpoint principal para cotação do frete
+router.post('/completo', (req, res) => {
+
+
+
+});
+
 router.post('/cubagem', (req, res) => {
 
     try {
