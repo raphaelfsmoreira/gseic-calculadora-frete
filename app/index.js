@@ -142,8 +142,8 @@ app.post("/frete/calcular", requireFreteAuth, async (req, res) => {
       distanciaKm: Number.parseFloat(req.body.distanciaKm),
       tipoFrete: req.body.tipoFrete,
       valorDeclarado: Number.parseFloat(req.body.valorDeclarado),
-      importado: req.body.importado === "on",
-      segurado: req.body.segurado === "on",
+      importado: req.body.importado === true || req.body.importado === "on",
+      segurado: req.body.segurado === true || req.body.segurado === "on",
     };
 
     const response = await fetch(`${API_URL}/api/frete/calcular`, {
