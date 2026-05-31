@@ -12,7 +12,7 @@ async function runFreteTests() {
   });
 
   console.log("\n--- Iniciando testes do Time_14(Frete) - Cálculo ---");
-  execSync('node "tests/Time_14(Frete)/frete.calculo.test.js"', {
+  execSync('node "tests/Time_14(Frete)/frete.calcular.test.js"', {
     stdio: "inherit",
   });
 
