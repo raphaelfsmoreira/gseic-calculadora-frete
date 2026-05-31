@@ -14,6 +14,7 @@ const ALIQUOTA_TIPOS_FRETE = {
 
 const TAXA_IMPORTACAO = 0.15;
 const TAXA_SEGURO = 0.05;
+const FATOR_CUBAGEM = 12000;
 
 
 function validarNumeroPositivo(valor, nomeCampo) {
@@ -28,16 +29,16 @@ function validarNumeroPositivo(valor, nomeCampo) {
 // Uma encomenda pode ser muito volumosa, apesar de leve, o que acaba ocupando muito espaço nos veículos de entrega.
 // Por outro lado, uma encomenda pode ser muito pesada (densa) o que acaba impactando também o custo do frete.
 
-function calcularPesoCubado(comprimento, largura, altura){
+function calcularPesoCubado(comprimentoCm, larguraCm, alturaCm){
 
     // Passar as entradas por validacao:
 
-    validarNumeroPositivo(comprimento, 'Comprimento');
-    validarNumeroPositivo(largura, 'Largura');
-    validarNumeroPositivo(altura, 'Altura');
+    validarNumeroPositivo(comprimentoCm, 'Comprimento');
+    validarNumeroPositivo(larguraCm, 'Largura');
+    validarNumeroPositivo(alturaCm, 'Altura');
 
 
-    const pesoCubado = (comprimento * largura * altura) / 6000;
+    const pesoCubado = (comprimentoCm * larguraCm * alturaCm) / FATOR_CUBAGEM;
 
     // Tipar para Number!
     return Number(pesoCubado.toFixed(2));
@@ -146,6 +147,7 @@ TIPOS_FRETE,
   ALIQUOTA_TIPOS_FRETE,
   TAXA_IMPORTACAO,
   TAXA_SEGURO,
+  FATOR_CUBAGEM,
   calcularPesoCubado,
   calcularPesoFaturado,
   calcularValorBase,

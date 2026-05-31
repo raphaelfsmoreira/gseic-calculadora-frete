@@ -2,7 +2,6 @@
 
 const {
     calcularPesoCubado,
-    calcuarPesoFaturado,
     calcularValorBase,
     calcularPesoFaturado,
     calcularTaxaImportacao,
@@ -23,10 +22,10 @@ describe('Teste da função calcularPesoCubado e validação de entrada dos valo
     test('Calcular peso cubado corretamente', () => {
         const resultado = calcularPesoCubado(40, 30, 20);
 
-        // pesoCubado = (comprimento * largura * altura) / 6000;
+        // pesoCubado = (comprimento * largura * altura) / FATOR_CUBAGEM;
 
         // Lembrando que a saída é um number com dois pontos decimais...
-        expect(resultado).toBe(4.00);
+        expect(resultado).toBe(2.00);
     });
 
     test('Deve lancar erro se houver um valor nulo', () => {
@@ -176,7 +175,7 @@ describe('Teste de calcularFreteCompleto', () => {
         );
 
         expect(resultado).toEqual({
-            pesoCubado: 4,
+            pesoCubado: 2,
             pesoFaturado: 8,
             valorBase: 50,
             taxaImportacao: 150,
@@ -199,7 +198,7 @@ describe('Teste de calcularFreteCompleto', () => {
         );
 
         expect(resultado).toEqual({
-            pesoCubado: 4,
+            pesoCubado: 2,
             pesoFaturado: 8,
             valorBase: 50,
             taxaImportacao: 0,

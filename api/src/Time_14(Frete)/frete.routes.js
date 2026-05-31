@@ -1,111 +1,83 @@
 const express = require('express');
 
 const {
-    calcularPesoCubado,
-    calcularPesoFaturado,
-    calcularValorBase
+    TIPOS_FRETE,
+    ALIQUOTA_TIPOS_FRETE,
+    calcularFreteCompleto
 } = require('./frete.functions');
 
 const router = express.Router();
 
-router.post('/health', (req, res) => {
 
+// Health check da API
+router.get('/health', (req, res) => {
+
+    return res.status(200).json({
+        status: 'ok',
+        message: 'API de cálculo de frete está funcionando',
+        timestamp: new Date().toISOString()
+    });
 });
 
 
 // Endpoint principal para cotação do frete
-router.post('/completo', (req, res) => {
+router.post('/calcular', (req, res) => {
 
+    try{
 
+        const{
+            comprimento,
+            largura,
+            altura,
+            pesoReal,
+            distanciaKm,
+            tipoFrete,
+            valorDeclarado,
+            importado,
+            segurado
+        } = req.body;
 
-});
-
-router.post('/cubagem', (req, res) => {
-
-    try {
-        
-        const { comprimento, largura, altura } = req.body
-
-        const pesoCubado = calcularPesoCubado(comprimento, largura, altura);
-
-        console.log(`Entrada: Comprimento = ${comprimento}
-                     Entrada: Largura = ${largura}
-                     Entrada: Altura = ${altura}
-                     Saída: pesoCubado = ${ pesoCubado }`);
-     
-
-        return res.status(200).json({
-                success: true,
-                data: { pesoCubado }
-            }
+        const valorCotacao = calcularFreteCompleto(
+            comprimento,
+            largura,
+            altura,
+            pesoReal,
+            distanciaKm,
+            tipoFrete,
+            valorDeclarado,
+            importado,
+            segurado
         );
 
-
-    } catch(err) {
-
-        console.log(err.message)
-
-        return res.status(400).json({
-                success: false,
-                error: err.message
-            }
-        )
-    }
-});
-
-router.post('/peso-faturado', (req, res) => {
-
-    try {
-
-        const { pesoCubado, pesoReal } = req.body;
-
-        const pesoFaturado = calcularPesoFaturado(pesoCubado, pesoReal);
-
-        console.log(`Entrada: pesoCubado = ${pesoCubado}
-                    Entrada: pesoReal = ${pesoReal}
-                    Saída: pesoFaturdo = ${pesoFaturado}`);
-        
         return res.status(200).json({
-                success: true,
-                data: { pesoFaturado }
-            }
-        );
+            success: true,
+            data: valorCotacao
+        });
 
     } catch(err) {
-
-        console.log(err.message);
-
+        
         return res.status(400).json({
-            sucess: false,
+            success: false,
             error: err.message
         });
+
     }
 });
 
-router.post('/valor-base', (req, res) => {
-    try {
 
-        const { distanciaKm, pesoFaturado, tipoFrete } = req.body;
+router.get('/tipos', (req, res) => {
+    const tipos = Object.values(TIPOS_FRETE).map((tipo) => {
+        return {
+            tipo,
+            aliquota: ALIQUOTA_TIPOS_FRETE[tipo],
+            aliquotaPercentual: `${ALIQUOTA_TIPOS_FRETE[tipo] * 100}%`
+        };
+    });
 
-        const valorBase = calcularValorBase(
-            distanciaKm,
-            pesoFaturado,
-            tipoFrete
-        );
-
-        return res.status(200).json({
-                success: true,
-                data: { valorBase }
-            }
-        );
-
-    } catch (err) {
-        return res.status(400).json({
-                success: false,
-                error: err.message
-            }
-        );
-    }
+    return res.status(200).json({
+        success: true,
+        data: tipos
+    });
 });
 
 
